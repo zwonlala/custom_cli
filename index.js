@@ -1,5 +1,6 @@
 const FileMaker = require("./FileMaker");
 const DirectoryChecker = require("./DirectoryChecker");
+const Committer = require("./Committer");
 
 // * FileMaker code
 /*
@@ -38,8 +39,13 @@ const pythonCode2 = `
 print('my name is jwSong')
 `;
 
-FileMaker.createFile("a", "/Users/songjiwon/Desktop", "python", pythonCode2);
-FileMaker.createFile("b", "/Users/songjiwon/Desktop", "py", pythonCode1);
+// FileMaker.createFile("a", "./", "python", pythonCode2);
+// FileMaker.createFile(
+//   "b",
+//   "/Users/songjiwon/Desktop/custom_cli",
+//   "py",
+//   pythonCode1
+// );
 */
 
 // * DirectoryChecker code
@@ -51,4 +57,9 @@ const path3 = "/Users/songjiwon/Desktop ";
 
 const isExisted = DirectoryChecker.isExisted(path3);
 console.log(isExisted);
+*/
+
+// * Committer code
+/*
+Committer.commit("b.txt");
 */
