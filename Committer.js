@@ -42,6 +42,13 @@ class Committer {
 
     //4. how to know git commit is succes?
   }
+
+  static push() {
+    const gitPushCmdStr = "git push";
+
+    const pushStdout = exec(gitPushCmdStr);
+    pushStdout.on("exit", (code) => console.log(code)); //if success code value is 0
+  }
 }
 
 module.exports = Committer;

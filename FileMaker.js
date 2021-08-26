@@ -2,7 +2,7 @@
 const fs = require("fs");
 
 class FileMaker {
-  static createFile = (name, path, format, content) => {
+  static createFile = (name, path, format, content, callback) => {
     const FILE_FORMAT_MAP = new Map()
       .set("python", "py")
       .set("javascript", "js")
@@ -23,6 +23,8 @@ class FileMaker {
     const errorCallback = (error) => {
       if (error) throw error;
       console.log("File is created successfully");
+      console.log("run callback func");
+      callback();
     };
 
     fs.writeFile(
