@@ -1,6 +1,12 @@
 const { exec } = require("child_process");
 
 class Committer {
+  static logger = (code, command) =>
+    //if success code value is 0
+    code === 0
+      ? console.log(`'${command}' command is successed. with exit code:${code}`)
+      : console.error(`'${command}' command is failed. with exit code:${code}`);
+
   static commit(file) {
     //0. check cur dir is git directory
 
@@ -11,32 +17,22 @@ class Committer {
     //2. git add
     const getGitAddCmdStr = (file) => `git add ${file}`;
 
-    const logger = (code, command) =>
-      //if success code value is 0
-      code === 0
-        ? console.log(
-            `'${command}' command is successed. with exit code:${code}`
-          )
-        : console.error(
-            `'${command}' command is failed. with exit code:${code}`
-          );
-
     const addStdout = exec(
       `${getGitAddCmdStr(file)}`,
       (error, stdout, stderr) => {
-        // console.error(error);  //this value is 'null'
+        // console.error(error); //this value is 'null'
         // console.error(stdout); //this value is ''
         // console.error(stderr); //this value is ''
       }
     );
-    addStdout.on("exit", (code) => logger(code, "git add"));
+    addStdout.on("exit", (code) => Committer.logger(code, "git add"));
 
     //3. git commit -m
     const getCommitMessage = (file) => `Add ${file}`;
     const getGitCommitCmdStr = `git commit -m "${getCommitMessage(file)}"`;
 
     const commitStdout = exec(getGitCommitCmdStr);
-    commitStdout.on("exit", (code) => logger(code, "git commit"));
+    commitStdout.on("exit", (code) => Committer.logger(code, "git commit"));
 
     //4. how to know git commit is succes?
   }
@@ -45,7 +41,7 @@ class Committer {
     const gitPushCmdStr = "git push";
 
     const pushStdout = exec(gitPushCmdStr);
-    pushStdout.on("exit", (code) => logger(code, "git push"));
+    pushStdout.on("exit", (code) => Committer.logger(code, "git push"));
   }
 }
 

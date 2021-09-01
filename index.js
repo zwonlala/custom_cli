@@ -41,17 +41,16 @@ print('my name is jwSong')
 
 const commitCallback = () => {
   // * Committer code
-  Committer.commit("b.txt");
-
+  Committer.commit("c.py");
   // * Commit push code
   Committer.push();
 };
 
 // FileMaker.createFile("a", "./", "python", pythonCode2);
 FileMaker.createFile(
-  "b",
+  "c",
   "/Users/songjiwon/Desktop/custom_cli",
-  "py",
+  "python",
   pythonCode1,
   commitCallback
 );
