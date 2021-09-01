@@ -11,6 +11,16 @@ class Committer {
     //2. git add
     const getGitAddCmdStr = (file) => `git add ${file}`;
 
+    const logger = (code, command) =>
+      //if success code value is 0
+      code === 0
+        ? console.log(
+            `'${command}' command is successed. with exit code:${code}`
+          )
+        : console.error(
+            `'${command}' command is failed. with exit code:${code}`
+          );
+
     const addStdout = exec(
       `${getGitAddCmdStr(file)}`,
       (error, stdout, stderr) => {
@@ -19,26 +29,14 @@ class Committer {
         // console.error(stderr); //this value is ''
       }
     );
-    addStdout.on("exit", (code) =>
-      code === 0
-        ? console.log(`'git add' command is successed. with exit code:${code}`) //if success code value is 0
-        : console.error(`'git add' command is failed. with exit code:${code}`)
-    );
+    addStdout.on("exit", (code) => logger(code, "git add"));
 
     //3. git commit -m
     const getCommitMessage = (file) => `Add ${file}`;
     const getGitCommitCmdStr = `git commit -m "${getCommitMessage(file)}"`;
 
     const commitStdout = exec(getGitCommitCmdStr);
-    commitStdout.on("exit", (code) =>
-      code === 0
-        ? console.log(
-            `'git commit' command is successed. with exit code:${code}`
-          ) //if success code value is 0
-        : console.error(
-            `'git commit' command is failed. with exit code:${code}`
-          )
-    );
+    commitStdout.on("exit", (code) => logger(code, "git commit"));
 
     //4. how to know git commit is succes?
   }
@@ -47,7 +45,7 @@ class Committer {
     const gitPushCmdStr = "git push";
 
     const pushStdout = exec(gitPushCmdStr);
-    pushStdout.on("exit", (code) => console.log(code)); //if success code value is 0
+    pushStdout.on("exit", (code) => logger(code, "git push"));
   }
 }
 
