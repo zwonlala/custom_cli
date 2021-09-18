@@ -1,6 +1,7 @@
-import FileMaker from "./FileMaker";
-import DrirectoryChecker from "./DirectoryChecker";
-import Committer from "./Committer";
+import FileMaker from "./src/FileMaker";
+import DrirectoryChecker from "./src/DirectoryChecker";
+import Committer from "./src/Committer";
+import FileExtension from "./type/FileExtension";
 
 // * FileMaker code
 
@@ -50,7 +51,7 @@ const commitCallback = () => {
 FileMaker.createFile(
   "c",
   "/Users/songjiwon/Desktop/custom_cli",
-  "python",
+  FileExtension.PYTHON,
   pythonCode1,
   commitCallback
 );
