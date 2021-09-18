@@ -1,6 +1,6 @@
-const FileMaker = require("./FileMaker");
-const DirectoryChecker = require("./DirectoryChecker");
-const Committer = require("./Committer");
+import FileMaker from "./FileMaker";
+import DrirectoryChecker from "./DirectoryChecker";
+import Committer from "./Committer";
 
 // * FileMaker code
 

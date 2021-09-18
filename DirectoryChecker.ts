@@ -1,7 +1,7 @@
 const { execSync } = require("child_process");
 
-class DirectoryChecker {
-  static isExisted(directoryPath) {
+export default class DirectoryChecker {
+  static isExisted(directoryPath: string): boolean {
     const EXISTED = 1;
 
     const dirs = directoryPath.split("/");
@@ -18,5 +18,3 @@ class DirectoryChecker {
     return Number(stdout) == EXISTED;
   }
 }
-
-module.exports = DirectoryChecker;
