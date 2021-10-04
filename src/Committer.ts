@@ -1,4 +1,5 @@
 import { exec, ChildProcess } from "child_process";
+import Command from "../type/Command";
 
 export default class Committer {
   static logger = (code: number, command: string) =>
@@ -15,36 +16,33 @@ export default class Committer {
     //second) check file's located dir also
 
     //2. git add
-    const getGitAddCmdStr = (file: string) => `git add ${file}`;
-
     const addStdout: ChildProcess = exec(
-      `${getGitAddCmdStr(file)}`,
+      `${Command.getCmdStr(Command.GIT_ADD, file)}`,
       (error: Error, stdout: string, stderr: string) => {
         // console.error(error); //this value is 'null'
         // console.error(stdout); //this value is ''
         // console.error(stderr); //this value is ''
       }
     );
-    addStdout.on("exit", (code: number) => Committer.logger(code, "git add"));
+    addStdout.on("exit", (code: number) =>
+      Committer.logger(code, Command.GIT_ADD)
+    );
 
     //3. git commit -m
-    const getCommitMessage = (file: string) => `Add ${file}`;
-    const getGitCommitCmdStr: string = `git commit -m "${getCommitMessage(
-      file
-    )}"`;
-
-    const commitStdout: ChildProcess = exec(getGitCommitCmdStr);
+    const commitStdout: ChildProcess = exec(
+      Command.getCmdStr(Command.GIT_COMMIT, file)
+    );
     commitStdout.on("exit", (code: number) =>
-      Committer.logger(code, "git commit")
+      Committer.logger(code, Command.GIT_COMMIT)
     );
 
     //4. how to know git commit is succes?
   }
 
   static push(): void {
-    const gitPushCmdStr: string = "git push";
-
-    const pushStdout: ChildProcess = exec(gitPushCmdStr);
-    pushStdout.on("exit", (code: number) => Committer.logger(code, "git push"));
+    const pushStdout: ChildProcess = exec(Command.GIT_PUSH);
+    pushStdout.on("exit", (code: number) =>
+      Committer.logger(code, Command.GIT_PUSH)
+    );
   }
 }

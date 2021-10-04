@@ -1,4 +1,5 @@
 import { execSync } from "child_process";
+import Command from "../type/Command";
 
 export default class DirectoryChecker {
   static isExisted(directoryPath: string): boolean {
@@ -12,7 +13,7 @@ export default class DirectoryChecker {
 
     // find /Users/songjiwon/Desktop -maxdepth 1 -name "custom_cli" | wc -l
     const stdout: Buffer = execSync(
-      `find ${path} -maxdepth 1 -name "${directory}" | wc -l`
+      Command.getCmdStr(Command.FIND, path, directory)
     );
 
     return Number(stdout) == EXISTED;
