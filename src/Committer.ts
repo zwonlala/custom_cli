@@ -1,4 +1,4 @@
-const { exec } = require("child_process");
+import { exec, ChildProcess } from "child_process";
 
 export default class Committer {
   static logger = (code: number, command: string) =>
@@ -17,7 +17,7 @@ export default class Committer {
     //2. git add
     const getGitAddCmdStr = (file: string) => `git add ${file}`;
 
-    const addStdout = exec(
+    const addStdout: ChildProcess = exec(
       `${getGitAddCmdStr(file)}`,
       (error: Error, stdout: string, stderr: string) => {
         // console.error(error); //this value is 'null'
@@ -29,9 +29,11 @@ export default class Committer {
 
     //3. git commit -m
     const getCommitMessage = (file: string) => `Add ${file}`;
-    const getGitCommitCmdStr = `git commit -m "${getCommitMessage(file)}"`;
+    const getGitCommitCmdStr: string = `git commit -m "${getCommitMessage(
+      file
+    )}"`;
 
-    const commitStdout = exec(getGitCommitCmdStr);
+    const commitStdout: ChildProcess = exec(getGitCommitCmdStr);
     commitStdout.on("exit", (code: number) =>
       Committer.logger(code, "git commit")
     );
@@ -40,9 +42,9 @@ export default class Committer {
   }
 
   static push(): void {
-    const gitPushCmdStr = "git push";
+    const gitPushCmdStr: string = "git push";
 
-    const pushStdout = exec(gitPushCmdStr);
+    const pushStdout: ChildProcess = exec(gitPushCmdStr);
     pushStdout.on("exit", (code: number) => Committer.logger(code, "git push"));
   }
 }

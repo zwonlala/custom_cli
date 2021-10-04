@@ -5,7 +5,7 @@ import FileExtension from "./type/FileExtension";
 
 // * FileMaker code
 
-const pythonCode1 = `
+const pythonCode1: string = `
 def solution(answers):
     answer = []
     supo1 = [1, 2, 3, 4, 5]
@@ -36,7 +36,7 @@ def solution(answers):
     return answer
 `;
 
-const pythonCode2 = `
+const pythonCode2: string = `
 print('my name is jwSong')
 `;
 
